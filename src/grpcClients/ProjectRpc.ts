@@ -1,16 +1,21 @@
-/*import grpc from 'grpc';
-import services from '../proto/projectmetadata_service_grpc_pb.d';
-import {ProjectResponse, ProjectResponseRepeated} from '../proto/projectmetadata_service_pb.d';
+import grpc from 'grpc';
+import services from '../proto/project-metadata/projectmetadata_service_grpc_pb';
+import {ProjectResponse, ProjectResponseRepeated} from '../proto/project-metadata/projectmetadata_service_pb';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 
 export class ProjectRpc {
     client: services.ProjectMetadataClient
 
     constructor() {
-        this.client = new services.ProjectMetadataClient(`localhost:9005`, grpc.credentials.createInsecure());
+        try {
+            this.client = new services.ProjectMetadataClient(`0.0.0.0:9005`, grpc.credentials.createInsecure());
+        } catch (e) {
+            console.log(e);
+        }
+
     }
 
-    public getAllProject(): Promise<ProjectResponseRepeated>{
+    public async getAllProject(): Promise<ProjectResponseRepeated>{
         return new Promise<ProjectResponseRepeated>(
             (resolve, reject) => {
                 this.client.getAllProjects(new Empty(), (err, rsp) => {
@@ -23,4 +28,4 @@ export class ProjectRpc {
         )
     }
 
-}*/
+}

@@ -11,7 +11,8 @@ import { RpcClientRegistry, Settings } from 'grpc-client-ts';
 import ProjectResolver from "./resolvers/ProjectResolver";
 import TaskResolver from "./resolvers/TaskResolver";
 import {settings} from "cluster";
-// import {ProjectRpc} from "./grpcClients/ProjectRpc";
+import {ProjectRpc} from "./grpcClients/ProjectRpc";
+import {ProjectResponseRepeated} from "./proto/project-metadata/projectmetadata_service_pb";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -32,16 +33,17 @@ async function main() {
         },
         validationRules: [depthLimit(7)],
     };
-    /*
+
     const projectRpc: ProjectRpc = new ProjectRpc()
     projectRpc.getAllProject()
         .then(
-            rsp => {
-                console.log(rsp);
+            (rsp: ProjectResponseRepeated) => {
+                console.log("in rsp: ")
+                console.log(rsp.getDataList());
             }
         ).catch( err => {
             console.log(err)
-    })*/
+    })
 
     const server = new ApolloServer(serverConfig);
 

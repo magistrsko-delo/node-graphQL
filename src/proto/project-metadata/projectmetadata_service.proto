@@ -2,8 +2,6 @@ syntax = "proto3";
 option java_package = "grpc";
 import "google/protobuf/empty.proto";
 
-package projectmetadata;
-
 service ProjectMetadata {
   rpc getProject(ProjectIdRequest) returns (ProjectResponse) {};
   rpc getAllProjects(google.protobuf.Empty) returns (ProjectResponseRepeated) {};
