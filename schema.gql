@@ -13,10 +13,19 @@ type Project {
   tasks: [Task!]!
 }
 
+type ProjectMetadata {
+  projectId: Int!
+  name: String!
+  thumbnail: String!
+  createdAt: Float!
+  updatedAt: Float!
+}
+
 type Query {
-  projectByName(name: String!): Project
+  projectByName1(name: String!): Project
   fetchTasks: [Task!]!
   getTask(id: Float!): Task
+  projectMetadata: [ProjectMetadata!]!
 }
 
 type Task {

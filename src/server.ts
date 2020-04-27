@@ -6,20 +6,18 @@ import depthLimit from "graphql-depth-limit";
 import cors from "cors";
 import compression from "compression";
 import { createServer } from "http";
-import { RpcClientRegistry, Settings } from 'grpc-client-ts';
-
 import ProjectResolver from "./resolvers/ProjectResolver";
 import TaskResolver from "./resolvers/TaskResolver";
-import {settings} from "cluster";
-import {ProjectRpc} from "./grpcClients/ProjectRpc";
-import {ProjectResponseRepeated} from "./proto/project-metadata/projectmetadata_service_pb";
+
+import { ProjectRpc } from "./grpcClients/ProjectRpc";
+import {ProjectMetadataResolver} from "./resolvers/ProjectMetadataResolver";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 async function main() {
     const schema = await buildSchema({
-        resolvers: [ProjectResolver ,TaskResolver],
+        resolvers: [ProjectResolver ,TaskResolver, ProjectMetadataResolver],
         emitSchemaFile: true,
     })
 
@@ -34,16 +32,14 @@ async function main() {
         validationRules: [depthLimit(7)],
     };
 
-    const projectRpc: ProjectRpc = new ProjectRpc()
-    projectRpc.getAllProject()
-        .then(
-            (rsp: ProjectResponseRepeated) => {
-                console.log("in rsp: ")
-                console.log(rsp.getDataList());
-            }
-        ).catch( err => {
-            console.log(err)
-    })
+    /*const projectRpc: ProjectRpc = new ProjectRpc()
+    try {
+        const projects = await projectRpc.getAllProjects()
+        console.log(projects.getDataList());
+
+    }catch (e) {
+        console.log(e)
+    }*/
 
     const server = new ApolloServer(serverConfig);
 

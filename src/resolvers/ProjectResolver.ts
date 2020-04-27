@@ -8,7 +8,7 @@ import Project from "../schemas/Project";
 export default class {
 
     @Query(returns => Project, { nullable: true })
-    projectByName(@Arg("name") name: string): ProjectData | undefined {
+    projectByName1(@Arg("name") name: string): ProjectData | undefined {
         return projects.find(project => project.name === name);
     }
 

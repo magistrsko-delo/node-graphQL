@@ -15,7 +15,7 @@ export class ProjectRpc {
 
     }
 
-    public async getAllProject(): Promise<ProjectResponseRepeated>{
+    public async getAllProjects(): Promise<ProjectResponseRepeated>{
         return new Promise<ProjectResponseRepeated>(
             (resolve, reject) => {
                 this.client.getAllProjects(new Empty(), (err, rsp) => {

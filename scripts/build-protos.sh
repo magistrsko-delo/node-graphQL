@@ -8,15 +8,27 @@ PROTO_DEST=$PWD/src/proto
 
 mkdir -p ${PROTO_DEST}
 
-echo $PWD
+echo WORKING DIR:  $PWD
 
-# JavaScript code generation
-yarn run grpc_tools_node_protoc \
-    src/proto/project-metadata/projectmetadata_service.proto \
-    --js_out=import_style=commonjs,binary:. \
-    --grpc_out=. \
-    --plugin=protoc-gen-grpc=$PWD/node_modules/.bin/grpc_tools_node_protoc_plugin.cmd \
+for f in ./src/proto/*; do
 
-# TypeScript code generation
-yarn run grpc_tools_node_protoc \
-    src/proto/project-metadata/projectmetadata_service.proto --plugin=protoc-gen-ts=$PWD/node_modules/.bin/protoc-gen-ts.cmd --ts_out=.
+  for protoFile in ${f}/*; do
+
+      if [ ${protoFile: -6} != ".proto" ]; then
+        echo CONTINUE ${protoFile}
+        continue
+      fi
+
+      echo ${protoFile}
+      #JavaScript code generation
+      yarn run grpc_tools_node_protoc \
+          ${protoFile} \
+          --js_out=import_style=commonjs,binary:. \
+          --grpc_out=. \
+          --plugin=protoc-gen-grpc=$PWD/node_modules/.bin/grpc_tools_node_protoc_plugin.cmd \
+
+      # TypeScript code generation
+      yarn run grpc_tools_node_protoc \
+          ${protoFile} --plugin=protoc-gen-ts=$PWD/node_modules/.bin/protoc-gen-ts.cmd --ts_out=.
+  done
+done
