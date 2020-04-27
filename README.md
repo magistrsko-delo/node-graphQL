@@ -1,2 +1,2 @@
 # node-graphQL
-node.js graphql server
+node.js graphql server_1
