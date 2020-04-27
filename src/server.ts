@@ -6,14 +6,17 @@ import depthLimit from "graphql-depth-limit";
 import cors from "cors";
 import compression from "compression";
 import { createServer } from "http";
+import { RpcClientRegistry, Settings } from 'grpc-client-ts';
 
 import ProjectResolver from "./resolvers/ProjectResolver";
 import TaskResolver from "./resolvers/TaskResolver";
+import {settings} from "cluster";
+// import {ProjectRpc} from "./grpcClients/ProjectRpc";
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 async function main() {
-
     const schema = await buildSchema({
         resolvers: [ProjectResolver ,TaskResolver],
         emitSchemaFile: true,
@@ -29,6 +32,16 @@ async function main() {
         },
         validationRules: [depthLimit(7)],
     };
+    /*
+    const projectRpc: ProjectRpc = new ProjectRpc()
+    projectRpc.getAllProject()
+        .then(
+            rsp => {
+                console.log(rsp);
+            }
+        ).catch( err => {
+            console.log(err)
+    })*/
 
     const server = new ApolloServer(serverConfig);
 
@@ -39,7 +52,9 @@ async function main() {
     await httpServer.listen(
         { port: port },
         (): void => {
-            console.log(`\n🚀      GraphQL is now running on http://localhost:` + port  +`/graphql`)}
+            console.log(`\n🚀      GraphQL is now running on http://localhost:` + port  +`/graphql`)
+            console.log(__dirname);
+        }
     );
 }
 
