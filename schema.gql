@@ -4,33 +4,26 @@
 # -----------------------------------------------
 
 type Mutation {
-  markAsCompleted(taskId: Float!): Task!
-}
-
-type Project {
-  id: Int!
-  name: String!
-  tasks: [Task!]!
+  updateProjectMetadata(projectUpdate: UpdateProjectMetadata!): ProjectMetadata!
+  deleteProject(projectId: Float!): [ProjectMetadata!]!
 }
 
 type ProjectMetadata {
+  projectId: Int
+  name: String
+  thumbnail: String
+  createdAt: Float
+  updatedAt: Float
+}
+
+type Query {
+  projectsMetadata: [ProjectMetadata!]!
+  oneProjectMetadata(projectId: Float!): ProjectMetadata
+}
+
+input UpdateProjectMetadata {
   projectId: Int!
   name: String!
   thumbnail: String!
   createdAt: Float!
-  updatedAt: Float!
-}
-
-type Query {
-  projectByName1(name: String!): Project
-  fetchTasks: [Task!]!
-  getTask(id: Float!): Task
-  projectMetadata: [ProjectMetadata!]!
-}
-
-type Task {
-  id: Int!
-  title: String!
-  project: Project!
-  completed: Boolean!
 }

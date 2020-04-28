@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/server.js",
-    "build": "tsc -p . && ncp src/schemas dist/schema",
+    "build": "tsc -p . && ncp src/graph/schemas dist/schema",
     "start:dev": "npm run build:dev",
     "build:dev": "nodemon src/server.ts --exec ts-node src/server.ts -e ts,graphql",
     "proto": "sh ./scripts/build-protos.sh",

@@ -6,18 +6,15 @@ import depthLimit from "graphql-depth-limit";
 import cors from "cors";
 import compression from "compression";
 import { createServer } from "http";
-import ProjectResolver from "./resolvers/ProjectResolver";
-import TaskResolver from "./resolvers/TaskResolver";
 
-import { ProjectRpc } from "./grpcClients/ProjectRpc";
-import {ProjectMetadataResolver} from "./resolvers/ProjectMetadataResolver";
+import {ProjectMetadataResolver} from "./graph/resolvers/ProjectMetadataResolver";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 async function main() {
     const schema = await buildSchema({
-        resolvers: [ProjectResolver ,TaskResolver, ProjectMetadataResolver],
+        resolvers: [ProjectMetadataResolver],
         emitSchemaFile: true,
     })
 
@@ -31,15 +28,6 @@ async function main() {
         },
         validationRules: [depthLimit(7)],
     };
-
-    /*const projectRpc: ProjectRpc = new ProjectRpc()
-    try {
-        const projects = await projectRpc.getAllProjects()
-        console.log(projects.getDataList());
-
-    }catch (e) {
-        console.log(e)
-    }*/
 
     const server = new ApolloServer(serverConfig);
 
