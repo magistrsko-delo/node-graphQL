@@ -8,13 +8,16 @@ import {
 } from '../proto/project-metadata/projectmetadata_service_pb';
 import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import {UpdateProjectMetadata} from "../graph/schemas/ProjectMetadata";
+import {ConfigModel} from "../Models/Convig-model";
+import {ConfigEnv} from "../config";
 
 export class ProjectRpc {
     client: services.ProjectMetadataClient
 
     constructor() {
+        const config: ConfigModel = ConfigEnv.getConfig();
         try {
-            this.client = new services.ProjectMetadataClient(`0.0.0.0:9005`, grpc.credentials.createInsecure());
+            this.client = new services.ProjectMetadataClient(config.projectMetadataGrpcServer + ':' + config.projectMetadataGrpcPort, grpc.credentials.createInsecure());
         } catch (e) {
             console.log(e);
         }

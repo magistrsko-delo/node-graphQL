@@ -8,11 +8,14 @@ import compression from "compression";
 import { createServer } from "http";
 
 import {ProjectMetadataResolver} from "./graph/resolvers/ProjectMetadataResolver";
+import {ConfigEnv} from "./config";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 async function main() {
+    ConfigEnv.InitConfig()
+
     const schema = await buildSchema({
         resolvers: [ProjectMetadataResolver],
         emitSchemaFile: true,
@@ -39,7 +42,7 @@ async function main() {
         { port: port },
         (): void => {
             console.log(`\n🚀      GraphQL is now running on http://localhost:` + port  +`/graphql`)
-            console.log(__dirname);
+            console.log("Config: ", ConfigEnv.getConfig());
         }
     );
 }
