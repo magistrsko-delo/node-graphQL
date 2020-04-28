@@ -3,22 +3,52 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type MediaMetadata {
+  mediaId: Int!
+  name: String!
+  siteName: String!
+  length: Float!
+  status: Float!
+  thumbnail: String!
+  projectId: Float!
+  awsBucketWholeMedia: String!
+  awsStorageNameWholeMedia: String!
+  createdAt: Float!
+  updatedAt: Float!
+  keywords: [String!]!
+}
+
 type Mutation {
   updateProjectMetadata(projectUpdate: UpdateProjectMetadata!): ProjectMetadata!
   deleteProject(projectId: Float!): [ProjectMetadata!]!
+  updateMedia(mediaData: UpdateMedia!): [MediaMetadata!]!
 }
 
 type ProjectMetadata {
-  projectId: Int
-  name: String
-  thumbnail: String
-  createdAt: Float
-  updatedAt: Float
+  projectId: Int!
+  name: String!
+  thumbnail: String!
+  createdAt: Float!
+  updatedAt: Float!
 }
 
 type Query {
   projectsMetadata: [ProjectMetadata!]!
   oneProjectMetadata(projectId: Float!): ProjectMetadata
+  searchMedias(status: Int = -1, mediaId: Int = -1, projectId: Int = -1): [MediaMetadata!]!
+}
+
+input UpdateMedia {
+  mediaId: Int!
+  name: String!
+  siteName: String!
+  length: Float!
+  status: Float!
+  thumbnail: String!
+  projectId: Float!
+  awsBucketWholeMedia: String!
+  awsStorageNameWholeMedia: String!
+  createdAt: Float!
 }
 
 input UpdateProjectMetadata {

@@ -1,13 +1,4 @@
-
-interface IProjectmetadataModel {
-    projectId: number;
-    name: string;
-    thumbnail: string;
-    createdAt: number;
-    updatedAt: number;
-}
-
-export class ProjectmetadataModel implements  IProjectmetadataModel{
+export class ProjectmetadataModel{
     projectId: number;
     name: string;
     thumbnail: string;

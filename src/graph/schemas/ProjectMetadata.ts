@@ -1,5 +1,3 @@
-// src/schemas/Project.ts
-
 import {Field, InputType, Int, ObjectType} from "type-graphql";
 
 @InputType()
@@ -19,18 +17,18 @@ export class UpdateProjectMetadata {
 
 @ObjectType()
 export class ProjectMetadata {
-    @Field(type => Int, {nullable: true})
+    @Field(type => Int )
     projectId: number;
 
-    @Field(type => String, {nullable: true})
+    @Field(type => String )
     name: string;
 
-    @Field(type => String, {nullable: true})
+    @Field(type => String )
     thumbnail: string;
 
-    @Field(type => Number, {nullable: true})
+    @Field(type => Number )
     createdAt: number
 
-    @Field(type => Number, {nullable: true})
+    @Field(type => Number )
     updatedAt: number
 }

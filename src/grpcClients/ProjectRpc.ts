@@ -21,7 +21,6 @@ export class ProjectRpc {
         } catch (e) {
             console.log(e);
         }
-
     }
 
     public async getAllProjects(): Promise<ProjectResponseRepeated>{
