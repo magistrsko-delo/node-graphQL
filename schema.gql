@@ -36,6 +36,17 @@ type Query {
   projectsMetadata: [ProjectMetadata!]!
   oneProjectMetadata(projectId: Float!): ProjectMetadata
   searchMedias(status: Int = -1, mediaId: Int = -1, projectId: Int = -1): [MediaMetadata!]!
+  getProjectSequences(projectId: Float!): [SequenceMetadata!]
+}
+
+type SequenceMetadata {
+  sequenceId: Int!
+  name: String!
+  projectId: Int!
+  thumbnail: String!
+  status: Int!
+  createdAt: Float!
+  updatedAt: Float!
 }
 
 input UpdateMedia {

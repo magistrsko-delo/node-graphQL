@@ -5,9 +5,6 @@ import {MediaRpc} from "../../grpcClients/MediaRpc";
 import {MediametadataModel} from "../../Models/mediametadata-model";
 import {MediaMetadataTransformer} from "../transformers/MediaMetadataTransformer";
 import {MediaMetadataResponseRepeated} from "../../proto/media-metadata/mediametadata_service_pb";
-import {ProjectMetadata} from "../schemas/ProjectMetadata";
-import {ProjectmetadataModel} from "../../Models/projectmetadata-model";
-import {ProjectMetadataTransformer} from "../transformers/ProjectMetadataTransformer";
 
 @Resolver(of => MediaMetadata)
 export class MediaMetadataResolver {
