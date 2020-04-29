@@ -50,16 +50,16 @@ export class MediaMetadata {
     @Field(type => Number)
     status: number;
 
-    @Field(type => String)
+    @Field(type => String, {nullable: true})
     thumbnail: string;
 
     @Field(type => Number)
     projectId: number;
 
-    @Field(type => String)
+    @Field(type => String, {nullable: true})
     awsBucketWholeMedia: string;
 
-    @Field(type => String)
+    @Field(type => String, {nullable: true})
     awsStorageNameWholeMedia: string;
 
     @Field(type => Number)
@@ -68,7 +68,7 @@ export class MediaMetadata {
     @Field(type => Number)
     updatedAt: number;
 
-    @Field(type => [String])
+    @Field(type => [String], {nullable: true})
     keywords: string[];
 }
 

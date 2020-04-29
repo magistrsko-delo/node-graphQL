@@ -15,7 +15,8 @@ export class ConfigEnv {
             process.env.MEDIA_METADATA_GRPC_SERVER,
             process.env.MEDIA_METADATA_GRPC_PORT,
             process.env.SEQUENCE_METADATA_GRPC_SERVER,
-            process.env.SEQUENCE_METADATA_GRPC_PORT
+            process.env.SEQUENCE_METADATA_GRPC_PORT,
+            process.env.SEQUENCE_MANAGER_URL
         )
     }
 

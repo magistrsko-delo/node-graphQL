@@ -1,12 +1,12 @@
 import grpc from 'grpc';
 import services from '../proto/sequence-metadata/sequencemetadata_service_grpc_pb';
-import { Empty } from 'google-protobuf/google/protobuf/empty_pb';
 import {ConfigModel} from "../Models/Convig-model";
 import {ConfigEnv} from "../config";
 import {
-    GetProjectSequencesRequest,
-    ProjectSequencesResponse
+    GetProjectSequencesRequest, NewSequenceRequest,
+    ProjectSequencesResponse, SequenceMediaRequest, SequenceMediaResponse, StatusResponse, UpdateSequenceRequest
 } from "../proto/sequence-metadata/sequencemetadata_service_pb";
+import {InputSequenceType} from "../graph/schemas/SequenceMetadata";
 
 export class SequenceRpc {
     client: services.SequenceMetadataClient
@@ -34,5 +34,78 @@ export class SequenceRpc {
                 })
             }
         )
+    }
+
+    public async addMediaToSequence(sequenceId: number, mediaId: number): Promise<StatusResponse> {
+        const addMediaReq: SequenceMediaRequest = new SequenceMediaRequest();
+        addMediaReq.setMediaid(mediaId);
+        addMediaReq.setSequenceid(sequenceId);
+
+        return new Promise<StatusResponse>(
+            (resolve, reject) => {
+                this.client.addMediaToSequence(addMediaReq, (error, response) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(response);
+                })
+            }
+        );
+    }
+
+    public async deleteMediaFromSequence(sequenceId: number, mediaId: number): Promise<StatusResponse> {
+        const deleteMediaReq: SequenceMediaRequest = new SequenceMediaRequest();
+        deleteMediaReq.setMediaid(mediaId);
+        deleteMediaReq.setSequenceid(sequenceId);
+
+        return new Promise<StatusResponse>(
+            (resolve, reject) => {
+                this.client.deleteMediaFromSequence(deleteMediaReq, (error, response) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(response);
+                });
+            }
+        );
+    }
+
+    public async createSequence(newSequenceData: InputSequenceType): Promise<SequenceMediaResponse> {
+        const newSequenceRequest: NewSequenceRequest = new NewSequenceRequest();
+        newSequenceRequest.setName(newSequenceData.name);
+        newSequenceRequest.setProjectid(newSequenceData.projectId);
+        newSequenceRequest.setThumbnail(newSequenceData.thumbnail);
+
+        return new Promise<SequenceMediaResponse>(
+            (resolve, reject) => {
+                this.client.createSequence(newSequenceRequest, (error, response) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(response);
+                });
+            }
+        );
+    }
+
+    public async updateSequence(newSequenceData: InputSequenceType): Promise<SequenceMediaResponse> {
+        const updateSequenceRequest: UpdateSequenceRequest = new UpdateSequenceRequest();
+
+        updateSequenceRequest.setName(newSequenceData.name);
+        updateSequenceRequest.setProjectid(newSequenceData.projectId);
+        updateSequenceRequest.setThumbnail(newSequenceData.thumbnail);
+        updateSequenceRequest.setStatus(newSequenceData.status);
+        updateSequenceRequest.setSequenceid(newSequenceData.sequenceId);
+
+        return new Promise<SequenceMediaResponse>(
+            (resolve, reject) => {
+                this.client.updateSequence(updateSequenceRequest, (error, response) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(response);
+                });
+            }
+        );
     }
 }

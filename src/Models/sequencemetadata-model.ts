@@ -1,4 +1,7 @@
-export class SequencemetadataModel {
+import {Model} from "./Model";
+import {MediametadataModel} from "./mediametadata-model";
+
+export class SequencemetadataModel{
     sequenceId: number;
     name: string;
     projectId: number;
@@ -15,4 +18,9 @@ export class SequencemetadataModel {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+}
+
+export class SequenceMediasModel extends Model{
+    sequence: SequencemetadataModel;
+    Medias: MediametadataModel[];
 }

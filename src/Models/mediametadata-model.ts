@@ -5,13 +5,13 @@ export class MediametadataModel {
     siteName: string;
     length: number;
     status: number;
-    thumbnail: string;
+    thumbnail?: string;
     projectId: number;
-    awsBucketWholeMedia: string;
-    awsStorageNameWholeMedia: string;
+    awsBucketWholeMedia?: string;
+    awsStorageNameWholeMedia?: string;
     createdAt: number;
     updatedAt: number;
-    keywords: string[];
+    keywords?: string[];
     constructor(
         mediaId: number,
         name: string,

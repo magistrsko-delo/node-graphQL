@@ -3,25 +3,37 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input InputSequenceType {
+  sequenceId: Int
+  name: String!
+  projectId: Int!
+  thumbnail: String
+  status: Int
+}
+
 type MediaMetadata {
   mediaId: Int!
   name: String!
   siteName: String!
   length: Float!
   status: Float!
-  thumbnail: String!
+  thumbnail: String
   projectId: Float!
-  awsBucketWholeMedia: String!
-  awsStorageNameWholeMedia: String!
+  awsBucketWholeMedia: String
+  awsStorageNameWholeMedia: String
   createdAt: Float!
   updatedAt: Float!
-  keywords: [String!]!
+  keywords: [String!]
 }
 
 type Mutation {
   updateProjectMetadata(projectUpdate: UpdateProjectMetadata!): ProjectMetadata!
   deleteProject(projectId: Float!): [ProjectMetadata!]!
   updateMedia(mediaData: UpdateMedia!): [MediaMetadata!]!
+  manageMediaInSequence(isAdd: Boolean = false, isDelete: Boolean = false, mediaId: Float!, sequenceId: Float!): SequenceMedias!
+  createSequence(newSequence: InputSequenceType!): [SequenceMetadata!]!
+  updateSequence(updateSequenceData: InputSequenceType!): [SequenceMetadata!]!
+  publishSequence(publishData: PublishSequenceType!): PublishSequenceRsp
 }
 
 type ProjectMetadata {
@@ -32,11 +44,27 @@ type ProjectMetadata {
   updatedAt: Float!
 }
 
+type PublishSequenceRsp {
+  isPublished: Boolean!
+}
+
+input PublishSequenceType {
+  sequenceId: Int!
+  name: String!
+  siteName: String!
+}
+
 type Query {
   projectsMetadata: [ProjectMetadata!]!
   oneProjectMetadata(projectId: Float!): ProjectMetadata
   searchMedias(status: Int = -1, mediaId: Int = -1, projectId: Int = -1): [MediaMetadata!]!
-  getProjectSequences(projectId: Float!): [SequenceMetadata!]
+  getProjectSequences(projectId: Float!): [SequenceMetadata!]!
+  getSequenceMedias(sequenceId: Float!): SequenceMedias
+}
+
+type SequenceMedias {
+  sequence: SequenceMetadata
+  Medias: [MediaMetadata!]!
 }
 
 type SequenceMetadata {
