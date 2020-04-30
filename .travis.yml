@@ -9,7 +9,7 @@ node_js:
 python:
   - "3.4"
 
-dist: bionic
+dist: trusty
 
 cache:
   npm
