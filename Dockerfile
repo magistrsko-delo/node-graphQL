@@ -14,4 +14,4 @@ RUN cp .env.production .env
 
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:dev" ]

@@ -13,7 +13,7 @@ import {MediaMetadataResolver} from "./graph/resolvers/MediaMetadataResolver";
 import {SequenceMetadataResolver} from "./graph/resolvers/SequenceMetadataResolver";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 async function main() {
     ConfigEnv.InitConfig()
