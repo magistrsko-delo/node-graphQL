@@ -20,18 +20,11 @@ async function main() {
 
     const schema = await buildSchema({
         resolvers: [ProjectMetadataResolver, MediaMetadataResolver, SequenceMetadataResolver],
-        emitSchemaFile: true,
     })
 
     const serverConfig: Config = {
         schema,
-        playground: {
-            settings: {
-                'editor.theme': 'dark', // change to light if you prefer
-                'editor.cursorShape': 'line', // possible values: 'line', 'block', 'underline'
-            },
-        },
-        validationRules: [depthLimit(7)],
+        playground: process.env.NODE_ENV !== 'production'
     };
 
     const server = new ApolloServer(serverConfig);

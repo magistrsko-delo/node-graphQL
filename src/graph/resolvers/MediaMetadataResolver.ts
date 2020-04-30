@@ -1,17 +1,20 @@
 import {Arg, Args, FieldResolver, Mutation, Query, Resolver, Root} from "type-graphql";
 
-import {GetMediaSearchArgs, MediaMetadata, UpdateMedia} from "../schemas/MediaMetadata";
+import {CutMediaType, GetMediaSearchArgs, MediaMetadata, UpdateMedia} from "../schemas/MediaMetadata";
 import {MediaRpc} from "../../grpcClients/MediaRpc";
 import {MediametadataModel} from "../../Models/mediametadata-model";
 import {MediaMetadataTransformer} from "../transformers/MediaMetadataTransformer";
 import {MediaMetadataResponseRepeated} from "../../proto/media-metadata/mediametadata_service_pb";
+import {ProjectMediaManagerHttpClient} from "../../httpClients/ProjectMediaManagerHttpClient";
 
 @Resolver(of => MediaMetadata)
 export class MediaMetadataResolver {
 
-    mediaRpcClient: MediaRpc
+    mediaRpcClient: MediaRpc;
+    projectMediaManagerHttpClient: ProjectMediaManagerHttpClient;
     constructor() {
-        this.mediaRpcClient = new MediaRpc()
+        this.mediaRpcClient = new MediaRpc();
+        this.projectMediaManagerHttpClient = new ProjectMediaManagerHttpClient();
     }
 
     @Query(returns => [MediaMetadata], { nullable: false })
@@ -64,6 +67,17 @@ export class MediaMetadataResolver {
         try {
             const updateMediaRsp = await this.mediaRpcClient.updateMedia(mediaData);
             return [MediaMetadataTransformer.TransformMedia(updateMediaRsp)];
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
+    @Mutation(returns => [MediaMetadata], {nullable: false})
+    async cutMedia(@Arg("cutMediaInput") cutMediaInput: CutMediaType): Promise<Array<MediametadataModel>> {
+        try {
+            const newMediaId = await this.projectMediaManagerHttpClient.cutMedia(cutMediaInput);
+            const mediaMetadataRsp = await this.mediaRpcClient.getMedia(newMediaId);
+            return [MediaMetadataTransformer.TransformMedia(mediaMetadataRsp)];
         } catch (e) {
             throw new Error(e);
         }

@@ -25,3 +25,9 @@ https://medium.com/blokur/how-to-implement-a-grpc-client-and-server-in-typescrip
 ```       
     "grpc-tools": "1.8.1" -- when building on travis--there is a problem... need for proto build on dev.. incllude when needed
 ```
+
+## OPTIONS
+
+```
+    /*"build:dev": "nodemon src/server.ts --exec ts-node src/server.ts",*/
+```

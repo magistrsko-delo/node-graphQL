@@ -8,6 +8,7 @@ export class ConfigModel {
     sequenceMetadataGrpcServer: string | undefined;
     sequenceMetadataGrpcPort: string | undefined;
     sequenceManagerUrl: string | undefined;
+    projectMediaManagerUrl: string | undefined;
 
     constructor(nodeEnv: string | undefined,
                 appId: string | undefined,
@@ -17,7 +18,8 @@ export class ConfigModel {
                 mediaMetadataGrpcPort: string | undefined,
                 sequenceMetadataGrpcServer: string | undefined,
                 sequenceMetadataGrpcPort: string | undefined,
-                sequenceManagerUrl: string | undefined
+                sequenceManagerUrl: string | undefined,
+                projectMediaManagerUrl: string | undefined
     ) {
         this.appId = appId;
         this.nodeEnv = nodeEnv;
@@ -28,5 +30,6 @@ export class ConfigModel {
         this.sequenceMetadataGrpcServer = sequenceMetadataGrpcServer;
         this.sequenceMetadataGrpcPort = sequenceMetadataGrpcPort;
         this.sequenceManagerUrl = sequenceManagerUrl;
+        this.projectMediaManagerUrl = projectMediaManagerUrl;
     }
 }

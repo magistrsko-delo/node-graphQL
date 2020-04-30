@@ -1,6 +1,21 @@
 import {ArgsType, Field, InputType, Int, ObjectType} from "type-graphql";
 
 @InputType()
+export class CutMediaType {
+    @Field(type => Number)
+    from: number;
+
+    @Field(type => Number)
+    to: number;
+
+    @Field(type => Number)
+    projectId: number;
+
+    @Field(type => Number)
+    mediaId: number;
+}
+
+@InputType()
 export class UpdateMedia {
     @Field(type => Int)
     mediaId: number;

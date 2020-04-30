@@ -1,5 +1,6 @@
+import {Model} from "./Model";
 
-export class MediametadataModel {
+export class MediametadataModel{
     mediaId: number;
     name: string;
     siteName: string;

@@ -1,9 +1,7 @@
 FROM node:12
-RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
 COPY . .
 
 RUN npm install --only=production
