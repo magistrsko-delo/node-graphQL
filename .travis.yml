@@ -34,8 +34,8 @@ jobs:
         - pip3 -V
         - npm i -g npm@6.14.4
         - npm explore npm -g -- npm install node-gyp@latest
-      script:
         - npm install --build-from-resource
+      script:
         - npm run build
     - stage: docker build
       script:
