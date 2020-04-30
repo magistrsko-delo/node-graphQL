@@ -6,6 +6,8 @@ services:
 language: node_js
 node_js:
   - 12
+python:
+  - "3.4"
 
 dist: bionic
 
@@ -25,6 +27,11 @@ jobs:
   include:
     - stage: build
       before_install:
+        - sudo apt-get -y install python3-pip python-dev
+        - sudo pip3 install -U setuptools
+        - sudo pip3 install -U virtualenvwrapper
+        - python3 -V
+        - pip3 -V
         - npm i -g npm@6.14.4
         - npm install
       script:

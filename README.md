@@ -7,6 +7,9 @@ node.js graphql server_1
 protoc src\proto\projectmetadata_service.proto --plugin=protoc-gen-ts=%CD%/node_modules/.bin/protoc-gen-ts.cmd --ts_out=.
 ```
 
+```
+sh ./scripts/build-protos.sh
+```
 
 # DOCS
 
