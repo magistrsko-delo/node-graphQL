@@ -4,11 +4,10 @@ RUN apt-get update && apt-get install -y build-essential && apt-get install -y p
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY . .
 
-RUN npm install
-
-COPY .env.production ./
-COPY dist ./
+RUN npm install --only=production
+COPY .env.production .
 
 RUN cp .env.production .env
 

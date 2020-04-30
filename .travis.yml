@@ -25,12 +25,6 @@ env:
 
 jobs:
   include:
-    - stage: build
-      before_install:
-        - npm i -g npm@6.14.4
-        - npm install --only=production
-      script:
-        - npm run build
     - stage: docker build
       script:
         - docker build -t "$DOCKER_IMAGE":latest .
