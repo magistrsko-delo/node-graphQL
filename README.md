@@ -24,4 +24,7 @@ https://medium.com/blokur/how-to-implement-a-grpc-client-and-server-in-typescrip
 ## TRAVIS
 ```        - npm explore npm -g -- npm install node-gyp@latest
            - npm install node-pre-gyp -g
-           - npm install --unsafe-perm node-sass -g```
+           - npm install --unsafe-perm node-sass -g
+
+grpc-tools
+```
