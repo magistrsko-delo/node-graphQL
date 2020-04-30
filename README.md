@@ -20,3 +20,8 @@ https://adnanahmed.info/blog/2019/11/01/grpc-with-nodejs-typescript/
 ```$xslt
 https://medium.com/blokur/how-to-implement-a-grpc-client-and-server-in-typescript-fa3ac807855e
 ```
+
+## TRAVIS
+```        - npm explore npm -g -- npm install node-gyp@latest
+           - npm install node-pre-gyp -g
+           - npm install --unsafe-perm node-sass -g```

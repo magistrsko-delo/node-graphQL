@@ -1,4 +1,5 @@
 FROM node:12
+RUN apt-get update && apt-get install -y build-essential && apt-get install -y python
 
 WORKDIR /usr/src/app
 
@@ -13,4 +14,4 @@ RUN cp .env.production .env
 
 EXPOSE 3000
 
-CMD [ "node", "/dist/server.js" ]
+CMD [ "npm", "start" ]
