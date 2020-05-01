@@ -5,7 +5,7 @@ import {ProjectResponse} from "../../proto/project-metadata/projectmetadata_serv
 export class ProjectMetadataTransformer {
 
     public static TransformOneProject(project: ProjectResponse): ProjectmetadataModel {
-        return new ProjectmetadataModel(project.getProjectid(), project.getName(), project.getName(), project.getCreatedat(), project.getUpdatedat());
+        return new ProjectmetadataModel(project.getProjectid(), project.getName(), project.getThumbnail(), project.getCreatedat(), project.getUpdatedat());
     }
 
     public static TransformAllProjectMetadata(projectsRsp: Array<ProjectResponse>): Array<ProjectmetadataModel> {
