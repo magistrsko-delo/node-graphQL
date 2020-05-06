@@ -3,8 +3,14 @@ import services from '../proto/sequence-metadata/sequencemetadata_service_grpc_p
 import {ConfigModel} from "../Models/Convig-model";
 import {ConfigEnv} from "../config";
 import {
-    GetProjectSequencesRequest, NewSequenceRequest,
-    ProjectSequencesResponse, SequenceMediaRequest, SequenceMediaResponse, StatusResponse, UpdateSequenceRequest
+    GetProjectSequencesRequest,
+    NewSequenceRequest,
+    ProjectSequencesResponse,
+    SequenceIdRequest,
+    SequenceMediaRequest,
+    SequenceMediaResponse,
+    StatusResponse,
+    UpdateSequenceRequest
 } from "../proto/sequence-metadata/sequencemetadata_service_pb";
 import {InputSequenceType} from "../graph/schemas/SequenceMetadata";
 
@@ -100,6 +106,22 @@ export class SequenceRpc {
         return new Promise<SequenceMediaResponse>(
             (resolve, reject) => {
                 this.client.updateSequence(updateSequenceRequest, (error, response) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(response);
+                });
+            }
+        );
+    }
+
+    public async deleteSequence(sequenceId: number): Promise<StatusResponse> {
+        const deleteSequenceReq: SequenceIdRequest = new SequenceIdRequest();
+        deleteSequenceReq.setSequenceid(sequenceId);
+
+        return new Promise<StatusResponse>(
+            (resolve, reject) => {
+                this.client.deleteSequence(deleteSequenceReq, (error, response) => {
                     if (error) {
                         return reject(error);
                     }

@@ -27,7 +27,6 @@ export class SequenceMetadataResolver {
     async getProjectSequences(@Arg('projectId') projectId: number): Promise<Array<SequencemetadataModel>> {
         try {
             const sequences = await this.sequenceRPCClient.getProjectSeqeuences(projectId);
-            this.sequenceManagerHttpClient.getSequenceMedias(5);
             return SequenceMetadataTransformer.TransformAllSequences(sequences.getDataList());
         } catch (e) {
             throw new Error(e);
@@ -102,5 +101,19 @@ export class SequenceMetadataResolver {
         } catch (e) {
             throw new Error(e);
         }
+    }
+
+    @Mutation(returns => [SequenceMetadata], {nullable: false})
+    async deleteSequence(
+        @Arg('projectId') projectId: number,
+        @Arg('sequenceId') sequenceId: number
+        ): Promise<Array<SequencemetadataModel>> {
+            try {
+                await this.sequenceRPCClient.deleteSequence(sequenceId);
+                const sequences = await this.sequenceRPCClient.getProjectSeqeuences(projectId);
+                return SequenceMetadataTransformer.TransformAllSequences(sequences.getDataList());
+            } catch (e) {
+                throw new Error(e);
+            }
     }
 }
