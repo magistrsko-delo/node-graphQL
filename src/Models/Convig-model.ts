@@ -9,6 +9,9 @@ export class ConfigModel {
     sequenceMetadataGrpcPort: string | undefined;
     sequenceManagerUrl: string | undefined;
     projectMediaManagerUrl: string | undefined;
+    jaegerAgentHost: string | undefined;
+    jaegerAgentPort: string | undefined;
+    jaegerCollector: string | undefined;
 
     constructor(nodeEnv: string | undefined,
                 appId: string | undefined,
@@ -19,7 +22,10 @@ export class ConfigModel {
                 sequenceMetadataGrpcServer: string | undefined,
                 sequenceMetadataGrpcPort: string | undefined,
                 sequenceManagerUrl: string | undefined,
-                projectMediaManagerUrl: string | undefined
+                projectMediaManagerUrl: string | undefined,
+                jaegerAgentHost: string | undefined,
+                jaegerAgentPort: string | undefined,
+                jaegerCollector: string | undefined
     ) {
         this.appId = appId;
         this.nodeEnv = nodeEnv;
@@ -31,5 +37,8 @@ export class ConfigModel {
         this.sequenceMetadataGrpcPort = sequenceMetadataGrpcPort;
         this.sequenceManagerUrl = sequenceManagerUrl;
         this.projectMediaManagerUrl = projectMediaManagerUrl;
+        this.jaegerAgentHost = jaegerAgentHost;
+        this.jaegerAgentPort = jaegerAgentPort;
+        this.jaegerCollector = jaegerCollector;
     }
 }
